@@ -1,6 +1,10 @@
-# Ant Design Pro
+# renfeiDesign
 
-This project is initialized with [Ant Design Pro](https://pro.ant.design). Follow is the quick guide for how to use.
+此项目基于 [Ant Design Pro](https://pro.ant.design) 构建。
+
+此项目是为后端项目 [renfeid](https://github.com/renfei/renfeid) 服务的前端项目。
+
+由于我不是前端专业人员，不打算深入研究自己写，所以选择了 Ant Design Pro 脚手架，快速开发中后台前端项目。
 
 ## Environment Prepare
 
