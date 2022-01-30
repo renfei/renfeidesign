@@ -344,6 +344,11 @@ export default defineConfig({
       schemaPath: 'https://gw.alipayobjects.com/os/antfincdn/CA1dOm%2631B/openapi.json',
       projectName: 'swagger',
     },
+    {
+      requestLibPath: "import { request } from 'umi'",
+      schemaPath: 'http://local.renfei.net:9595/v3/api-docs/BackgroundApi',
+      projectName: 'renfeid',
+    },
   ],
   nodeModulesTransform: {
     type: 'none',
