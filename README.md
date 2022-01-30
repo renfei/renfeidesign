@@ -6,6 +6,25 @@
 
 由于我不是前端专业人员，不打算深入研究自己写，所以选择了 Ant Design Pro 脚手架，快速开发中后台前端项目。
 
+## 注意事项
+
+### 代理
+
+对路径 `/_/api/**` 已经设置代理访问，需要修改请修改 `config/proxy.ts` 文件。
+
+### 菜单部分
+
+菜单部分已经对接后端接口，所以可能不是项目中的路由地址，如果要恢复原始项目中的路由地址，请注释掉`src/app.tsx` 中这部分代码：
+
+```typescript jsx
+menu: {
+  request: async ()=>{
+    const menuTree = await getMenuTreeByUser();
+    return menuTree.data;
+  },
+},
+```
+
 ## Environment Prepare
 
 Install `node_modules`:

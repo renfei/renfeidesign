@@ -1,11 +1,12 @@
 import type { Settings as LayoutSettings } from '@ant-design/pro-layout';
 import { PageLoading } from '@ant-design/pro-layout';
 import type { RunTimeLayoutConfig } from 'umi';
-import { history, Link } from 'umi';
+import { history, Link, RequestConfig } from 'umi';
 import RightContent from '@/components/RightContent';
 import Footer from '@/components/Footer';
 import { currentUser as queryCurrentUser } from './services/ant-design-pro/api';
 import { BookOutlined, LinkOutlined } from '@ant-design/icons';
+import { getMenuTreeByUser } from './services/renfeid/xitongcaidanjiekou';
 
 const isDev = process.env.NODE_ENV === 'development';
 const loginPath = '/user/login';
@@ -79,5 +80,34 @@ export const layout: RunTimeLayoutConfig = ({ initialState }) => {
     // 自定义 403 页面
     // unAccessible: <div>unAccessible</div>,
     ...initialState?.settings,
+    // 菜单对接后端地址
+    menu: {
+      request: async () => {
+        const menuTree = await getMenuTreeByUser();
+        return menuTree.data;
+      },
+    },
   };
+};
+
+// 统一给接口加 Token 拦截器
+const accessToken = (url: string, options: RequestInit) => {
+  if (localStorage.getItem('AccessToken')) {
+    const token = `Bearer ` + localStorage.getItem('AccessToken');
+    console.log('token', token);
+    // options.headers.Authorization = `Bearer ` + localStorage.getItem('token');
+    options.headers = {
+      ...options.headers,
+      Authorization: token,
+      'Content-Type': 'application/json',
+    };
+  }
+  console.log('url', url);
+  return { url, options };
+};
+
+// 给请求方法加拦截器
+export const request: RequestConfig = {
+  credentials: 'include',
+  requestInterceptors: [accessToken],
 };
